@@ -8,7 +8,11 @@ function App() {
   // Here the count is variable and setCount is function responsible to update the value of count, here useState is Hook which is responsible to track the change of state.
   // Hooks in react are responsible for updation of values in ui
   function addValue() {
-    if (count < 20) setCount(count + 1);
+    if (count < 20) {
+      setCount(count + 1);
+      setCount((count) => count + 1); // this is the callback which is returning the prev state
+      // setCount((counterr) => counterr + 1);// this is also same as above
+    }
   }
   function subValue() {
     if (count > 0) setCount(count - 1);
