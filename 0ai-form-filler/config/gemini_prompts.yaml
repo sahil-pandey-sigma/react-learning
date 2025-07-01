@@ -1,0 +1,46 @@
+# Prompts for Gemini Pro
+
+# Prompt for initial extraction:
+# This prompt asks Gemini to identify the document type and extract relevant data
+# from *each* document. It should return a structured JSON object.
+initial_extraction: |-
+  Analyze the provided document text. First, identify the main type of document (e.g., Aadhaar, PAN, Bank Passbook, Other). Then, extract all relevant key information from the document.
+
+  Structure your response as a JSON object with two keys:
+  - "document_type": The identified type of the document (string).
+  - "data": A JSON object containing the extracted key-value pairs. Use descriptive keys (e.g., "full_name", "date_of_birth", "pan_number", "aadhaar_number", "account_number", "address"). If a field is not found, omit the key or set the value to null.
+
+  Aim to be comprehensive in extracting data for the identified document type.
+
+# Prompt for consolidating data:
+# This prompt takes the JSON outputs from the initial_extraction step for multiple documents
+# and asks Gemini to merge them into a single, consistent profile JSON object.
+consolidation: |-
+  You are a data consolidation assistant. You will receive a JSON array where each object represents data extracted from a single document. Your task is to combine the information from these documents into a single, comprehensive JSON object representing a user profile.
+
+  Resolve any conflicts (e.g., slightly different names or addresses) by using the most likely correct or most complete information, considering typical data sources (e.g., Aadhaar for official address, PAN for name and PAN number).
+
+  Include the following key fields if found in the input data, using the best available value:
+  - full_name
+  - date_of_birth (format as YYYY-MM-DD if possible)
+  - gender
+  - pan_number
+  - aadhaar_number
+  - account_number
+  - bank_name
+  - branch_name
+  - address (a single consolidated address if possible)
+  - father_name (or guardian_name)
+  - email (if found)
+  - phone_number (if found)
+
+  Return only the single consolidated JSON object. If no relevant data is found across all documents, return an empty JSON object {}.
+
+  Example Input Structure:
+  [
+    {"doc_path": "...", "extracted": {"document_type": "Aadhaar", "data": {"full_name": "...", ...}}},
+    {"doc_path": "...", "extracted": {"document_type": "PAN", "data": {"full_name": "...", ...}}},
+    ...
+  ]
+
+  Return only the Consolidated JSON Object.8
