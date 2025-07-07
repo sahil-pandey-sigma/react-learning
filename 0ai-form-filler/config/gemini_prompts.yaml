@@ -32,6 +32,7 @@ consolidation: |-
   - address (a single consolidated address if possible)
   - father_name (or guardian_name)
   - email (if found)
+  - ifsc_code
   - phone_number (if found)
 
   Return only the single consolidated JSON object. If no relevant data is found across all documents, return an empty JSON object {}.
