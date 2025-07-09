@@ -1,0 +1,16 @@
+local_test_form:
+  url: "http://localhost:5173/" # *** VERIFY this URL matches your running React app ***
+
+  # Form field locators : Corresponding key in your consolidated_data (from Gemini)
+  "#fullNameInput": "full_name"
+  "#dobInput": "date_of_birth" # Selenium will fill date type input with YYYY-MM-DD
+  "#genderSelect": "gender" # Selenium needs to handle this as a <select> element
+  "#panNumberInput": "pan_number"
+  "#aadhaarNumberInput": "aadhaar_number"
+  "#accountNumberInput": "account_number"
+  "#bankNameInput": "bank_name"
+  "#ifscCodeInput": "ifsc_code"
+  "#permanentAddressTextarea": "address" # Ensure consolidated data key matches
+  "#fathersNameInput": "father_name" # Expect this from Gemini's consolidation
+  "#emailInput": "email" # Expect this from Gemini's consolidation
+  "#phoneNumberInput": "phone_number" # Expect this from Gemini's consolidation
